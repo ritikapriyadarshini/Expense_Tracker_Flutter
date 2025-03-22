@@ -1,6 +1,70 @@
-# expense_tracker
+## 💰 Expense Tracker App (Flutter)
+A simple and elegant expense tracker built using Flutter that helps users record and manage their daily expenses efficiently.
 
-A new Flutter project.
+
+## 🚀 Features
+
+✅ Add Expenses: Users can add new expenses with a name and amount.
+📊 View Weekly Summary: A bar graph visualization of weekly spending using FL Chart.
+❌ Delete Expenses: Swipe to delete any recorded expense.
+💾 Persistent Storage: Uses Hive to store expenses locally.
+🎨 Responsive UI: A smooth and intuitive user interface with Flutter Slidable actions.
+
+
+## 🛠️ Technologies Used
+
+ -Flutter (Dart)
+
+ -Hive (Local Database)
+
+ -Provider (State Management)
+
+ -FL Chart (Graph Visualization)
+
+ -Flutter Slidable (Swipeable List Actions)
+
+
+## 📂 Project Structure
+
+  expense_tracker/
+  │── lib/
+  │   ├── main.dart
+  │   ├── home_page.dart
+  │   ├── components/
+  │   │   ├── expense_tile.dart
+  │   │   ├── expense_summary.dart
+  │   ├── data/
+  │   │   ├── expense_data.dart
+  │   ├── models/
+  │   │   ├── expense_item.dart
+  │── assets/
+  │── pubspec.yaml
+  │── README.md
+
+
+## 🏗️ Installation & Setup
+
+ - [Clone the repository: (git clone https://github.com/yourusername/expense-tracker.git)]
+
+ - [Navigate to the project directory: cd expense-tracker]
+
+ - [Install dependencies: flutter pub get]
+
+ - [Run the app: flutter run]
+
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to fork the repo and submit a pull request.
+
+
+## 📜 License
+
+This project is open-source and available under the MIT License.
+
+Developed with ❤️ by Ritika Priyadarshini 🚀
+
+
 
 ## Getting Started
 
