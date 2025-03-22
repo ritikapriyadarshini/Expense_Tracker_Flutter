@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:expense_tracker/bar%20graph/bar_data.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';

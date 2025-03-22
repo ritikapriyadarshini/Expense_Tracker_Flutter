@@ -3,18 +3,18 @@ import 'package:expense_tracker/datetime/date_time_helper.dart';
 import 'package:expense_tracker/models/expense_item.dart';
 import 'package:flutter/material.dart';
 
-class ExpenseData extends ChangeNotifier{
+class ExpenseData extends ChangeNotifier {
   // list all the expenses
-  List<ExpenseItem> overallExpenseList= [];
+  List<ExpenseItem> overallExpenseList = [];
 
   // get expense list
-  List<ExpenseItem> getAllExpenseList(){
+  List<ExpenseItem> getAllExpenseList() {
     return overallExpenseList;
   }
 
   //prepare data
   final db = HiveDb();
-  void prepareData(){
+  void prepareData() {
     //if previous data exists
     if (db.readData().isNotEmpty) {
       overallExpenseList = db.readData();
@@ -22,21 +22,33 @@ class ExpenseData extends ChangeNotifier{
   }
 
   // add new expense
-  void addNewExpense(ExpenseItem newExpenseItem){
+  void addNewExpense(ExpenseItem newExpenseItem) {
     overallExpenseList.add(newExpenseItem);
     notifyListeners();
     db.saveData(overallExpenseList);
   }
 
   // delete expense
-  void deleteExpense(ExpenseItem expense){
+  void deleteExpense(ExpenseItem expense) {
     overallExpenseList.remove(expense);
     notifyListeners();
     db.saveData(overallExpenseList);
   }
 
+  //update expense
+  void updateExpense(ExpenseItem oldExpense, ExpenseItem newExpense) {
+    int index = overallExpenseList
+        .indexWhere((expense) => expense.dateTime == oldExpense.dateTime && expense.name == oldExpense.name);
+        
+    if (index != -1) {
+      overallExpenseList[index] = newExpense;
+      notifyListeners();
+      db.saveData(overallExpenseList);
+    }
+  }
+
   // get weekday (mon, tue, wed, etc) from a dateTime object
-  String getDayName(DateTime dateTime){
+  String getDayName(DateTime dateTime) {
     switch (dateTime.weekday) {
       case 1:
         return 'Mon';
@@ -58,15 +70,15 @@ class ExpenseData extends ChangeNotifier{
   }
 
   // get date from start of the week ( Sunday )
-  DateTime startOfWeekDate(){
+  DateTime startOfWeekDate() {
     DateTime? startOfWeek;
 
     //get today's date
-    DateTime today= DateTime.now();
+    DateTime today = DateTime.now();
 
     //go backwards from today to Sunday
-    for(int i=0; i<7; i++){
-      if(getDayName(today.subtract(Duration(days: i)))=='Sun'){
+    for (int i = 0; i < 7; i++) {
+      if (getDayName(today.subtract(Duration(days: i))) == 'Sun') {
         startOfWeek = today.subtract(Duration(days: i));
       }
     }
@@ -74,8 +86,7 @@ class ExpenseData extends ChangeNotifier{
     return startOfWeek!;
   }
 
-
-  // now I have a list of expenses overall that looks something like: 
+  // now I have a list of expenses overall that looks something like:
 
   /*
 
@@ -104,8 +115,8 @@ class ExpenseData extends ChangeNotifier{
     ]
 
   */
-  Map<String, double> calculateDailyExpenseSummary(){
-    Map<String, double> dailyExpenseSummary= {
+  Map<String, double> calculateDailyExpenseSummary() {
+    Map<String, double> dailyExpenseSummary = {
       //date (YYYYMMDD): amountTotalForDay
     };
 
@@ -115,15 +126,13 @@ class ExpenseData extends ChangeNotifier{
 
       if (dailyExpenseSummary.containsKey(date)) {
         double currentAmount = dailyExpenseSummary[date]!;
-        currentAmount+= amount;
-        dailyExpenseSummary[date]= currentAmount;
-      } else{
+        currentAmount += amount;
+        dailyExpenseSummary[date] = currentAmount;
+      } else {
         dailyExpenseSummary.addAll({date: amount});
       }
     }
 
     return dailyExpenseSummary;
   }
-
-
 }

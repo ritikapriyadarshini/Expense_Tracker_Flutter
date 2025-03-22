@@ -6,7 +6,7 @@ class ExpenseTile extends StatelessWidget {
   final String amount;
   final DateTime dateTime;
   void Function(BuildContext)? deleteTapped;
-  void Function(BuildContext)? onPressed;
+  void Function(BuildContext)? editTapped;
 
   ExpenseTile({
     super.key,
@@ -14,7 +14,7 @@ class ExpenseTile extends StatelessWidget {
     required this.amount,
     required this.dateTime,
     required this.deleteTapped,
-    required this.onPressed,
+    required this.editTapped
   });
 
   @override
@@ -26,19 +26,19 @@ class ExpenseTile extends StatelessWidget {
           //delete button
           CustomSlidableAction(
             onPressed: deleteTapped,
-            foregroundColor: Colors.white60,
+            foregroundColor: Colors.white70,
             backgroundColor: Colors.redAccent,
-            borderRadius: BorderRadius.circular(3),
+            borderRadius: BorderRadius.circular(4),
             child: Icon(
               Icons.delete,
               color: Colors.grey[200],
             ),
           ),
           //edit button
-          // SlidableAction(
-          //   onPressed: onPressed,
-          //   icon: Icons.edit,
-          // ),
+          SlidableAction(
+            onPressed: editTapped,
+            icon: Icons.edit,
+          ),
         ],
       ),
       child: ListTile(

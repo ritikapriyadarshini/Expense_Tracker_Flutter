@@ -15,12 +15,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final newExpenseNameController = TextEditingController();
   final newExpenseRupController = TextEditingController();
-  final newExpensePaiseController= TextEditingController();
+  final newExpensePaiseController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    
+
     //prepare data on startup
     Provider.of<ExpenseData>(context, listen: false).prepareData();
   }
@@ -37,9 +37,7 @@ class _HomePageState extends State<HomePage> {
             // expense name
             TextField(
               controller: newExpenseNameController,
-              decoration: InputDecoration(
-                hintText: "Expense Item"
-              ),
+              decoration: InputDecoration(hintText: "Expense Item"),
             ),
 
             // expense amount
@@ -81,8 +79,6 @@ class _HomePageState extends State<HomePage> {
             onPressed: save,
             child: Text('Save'),
           ),
-
-          
         ],
       ),
     );
@@ -95,16 +91,54 @@ class _HomePageState extends State<HomePage> {
   }
 
   //delete
-  void deleteExpense(ExpenseItem expense){
+  void deleteExpense(ExpenseItem expense) {
     Provider.of<ExpenseData>(context, listen: false).deleteExpense(expense);
+  }
+
+  //edit expense
+  void editExpenseAmount(ExpenseItem expense) {
+    TextEditingController amtController =
+        TextEditingController(text: expense.amount);
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text("Enter a new amount"),
+        content: TextField(
+          controller: amtController,
+          keyboardType: TextInputType.number,
+        ),
+        actions: [
+          MaterialButton(
+            onPressed: cancel,
+            child: Text('cancel'),
+          ),
+          MaterialButton(
+            onPressed: () {
+              String newAmt = amtController.text;
+
+              if(newAmt.isNotEmpty){
+                ExpenseItem updatedAmt= ExpenseItem(name: expense.name, amount: newAmt, dateTime: expense.dateTime);
+                Provider.of<ExpenseData>(context, listen: false).updateExpense(expense, updatedAmt);
+              }
+
+              Navigator.pop(context);
+            },
+            child: Text('save'),
+          )
+        ],
+      ),
+    );
   }
 
   //save
   void save() {
     //adding .00 to paise when not entered by user
-    String paisa= newExpensePaiseController.text.isEmpty? '00': newExpensePaiseController.text;
+    String paisa = newExpensePaiseController.text.isEmpty
+        ? '00'
+        : newExpensePaiseController.text;
     //putting Rupees and Paise together
-    String amt= '${newExpenseRupController.text}.$paisa' ;
+    String amt = '${newExpenseRupController.text}.$paisa';
     //create new expense item
     ExpenseItem newExpenseItem = ExpenseItem(
       name: newExpenseNameController.text,
@@ -129,36 +163,39 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Consumer<ExpenseData>(
       builder: (context, value, child) => Scaffold(
-        backgroundColor: Colors.grey[300],
-        floatingActionButton: FloatingActionButton(
-          onPressed: addNewExpense,
-          backgroundColor: Colors.grey[850],
-          foregroundColor: Colors.grey,
-          child: Icon(Icons.add),
-        ),
-        body: ListView(
-          children: [
-            //weekly summary
-            ExpenseSummary(startOfWeek: value.startOfWeekDate()),
+          backgroundColor: Colors.grey[300],
+          floatingActionButton: FloatingActionButton(
+            onPressed: addNewExpense,
+            backgroundColor: Colors.grey[850],
+            foregroundColor: Colors.grey,
+            child: Icon(Icons.add),
+          ),
+          body: ListView(
+            children: [
+              //weekly summary
+              ExpenseSummary(startOfWeek: value.startOfWeekDate()),
 
-            SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
 
-            //expense list
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: value.getAllExpenseList().length,
-              itemBuilder: (context, index) => ExpenseTile(
+              //expense list
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: value.getAllExpenseList().length,
+                itemBuilder: (context, index) => ExpenseTile(
                   name: value.getAllExpenseList()[index].name,
                   amount: value.getAllExpenseList()[index].amount,
                   dateTime: value.getAllExpenseList()[index].dateTime,
-                  deleteTapped:(p0) => deleteExpense(value.getAllExpenseList()[index]),
-                  onPressed: (p0) => {},
+                  deleteTapped: (p0) =>
+                      deleteExpense(value.getAllExpenseList()[index]),
+                  editTapped: (p0) =>
+                      editExpenseAmount(value.getAllExpenseList()[index]),
                 ),
-            ),
-          ],
-        )
-      ),
+              ),
+            ],
+          )),
     );
   }
 }
