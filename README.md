@@ -4,11 +4,11 @@ A simple and elegant expense tracker built using Flutter that helps users record
 
 ## 🚀 Features
 
-✅ Add Expenses: Users can add new expenses with a name and amount.
-📊 View Weekly Summary: A bar graph visualization of weekly spending using FL Chart.
-❌ Delete Expenses: Swipe to delete any recorded expense.
-💾 Persistent Storage: Uses Hive to store expenses locally.
-🎨 Responsive UI: A smooth and intuitive user interface with Flutter Slidable actions.
+- ✅ Add Expenses: Users can add new expenses with a name and amount.
+- 📊 View Weekly Summary: A bar graph visualization of weekly spending using FL Chart.
+- ❌ Delete Expenses: Swipe to delete any recorded expense.
+- 💾 Persistent Storage: Uses Hive to store expenses locally.
+- 🎨 Responsive UI: A smooth and intuitive user interface with Flutter Slidable actions.
 
 
 ## 🛠️ Technologies Used
