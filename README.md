@@ -27,19 +27,19 @@ A simple and elegant expense tracker built using Flutter that helps users record
 ## 📂 Project Structure
 
   expense_tracker/
-  │── lib/
-  │   ├── main.dart
-  │   ├── home_page.dart
-  │   ├── components/
-  │   │   ├── expense_tile.dart
-  │   │   ├── expense_summary.dart
-  │   ├── data/
-  │   │   ├── expense_data.dart
-  │   ├── models/
-  │   │   ├── expense_item.dart
-  │── assets/
-  │── pubspec.yaml
-  │── README.md
+ -  │── lib/
+ -  │   ├── main.dart
+ -  │   ├── home_page.dart
+ -  │   ├── components/
+ -  │   │   ├── expense_tile.dart
+ -  │   │   ├── expense_summary.dart
+ -  │   ├── data/
+ -  │   │   ├── expense_data.dart
+ -  │   ├── models/
+ -  │   │   ├── expense_item.dart
+ -  │── assets/
+ -  │── pubspec.yaml
+ -  │── README.md
 
 
 ## 🏗️ Installation & Setup
