@@ -134,7 +134,9 @@ class _HomePageState extends State<HomePage> {
   //save
   void save() {
     //adding .00 to paise when not entered by user
-    String paisa = newExpensePaiseController.text.isEmpty
+    //only save expense when all feilds are filled
+    if(newExpenseNameController.text.isNotEmpty && newExpenseRupController.text.isNotEmpty ){
+      String paisa = newExpensePaiseController.text.isEmpty
         ? '00'
         : newExpensePaiseController.text;
     //putting Rupees and Paise together
@@ -148,6 +150,7 @@ class _HomePageState extends State<HomePage> {
     //add new expense item
     Provider.of<ExpenseData>(context, listen: false)
         .addNewExpense(newExpenseItem);
+    }
     Navigator.pop(context);
     clear();
   }
