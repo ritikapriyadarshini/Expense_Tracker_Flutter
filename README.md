@@ -13,15 +13,15 @@ A simple and elegant expense tracker built using Flutter that helps users record
 
 ## 🛠️ Technologies Used
 
- -Flutter (Dart)
+ - Flutter (Dart)
 
- -Hive (Local Database)
+ - Hive (Local Database)
 
- -Provider (State Management)
+ - Provider (State Management)
 
- -FL Chart (Graph Visualization)
+ - FL Chart (Graph Visualization)
 
- -Flutter Slidable (Swipeable List Actions)
+ - Flutter Slidable (Swipeable List Actions)
 
 
 ## 📂 Project Structure
